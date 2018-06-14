@@ -1,4 +1,4 @@
-package Steps;
+package steps;
 
 import Base.BaseUtil;
 import cucumber.api.DataTable;
@@ -6,6 +6,9 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import pages.LoginPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,41 +27,35 @@ public class LoginStep extends BaseUtil{
     @Then("^I should see the userform page$")
     public void iShouldSeeTheUserformPage() throws Throwable {
 
-
-        System.out.println("The driver is : " + base.StepInfo);
-
-        System.out.println("I should see userform page");
+        Assert.assertEquals("Its not displayed", base.Driver.findElement(By.id("Initial")).isDisplayed(), true);
     }
 
     @Given("^I navigate to the login page$")
     public void iNavigateToTheLoginPage() throws Throwable {
 
         System.out.println("Navigate Login Page");
+        base.Driver.navigate().to("http://www.executeautomation.com/demosite/Login.html");
     }
 
 
     @And("^I click login button$")
     public void iClickLoginButton() throws Throwable {
-        System.out.println("Click login button");
+        LoginPage page = new LoginPage(base.Driver);
+        page.ClickLogin();
     }
 
 
     @And("^I enter the following for Login$")
     public void iEnterTheFollowingForLogin(DataTable table) throws Throwable {
-
-        /*List<List<String>> data = table.raw();
-
-        System.out.println("The Value is : " + data.get(0).get(0).toString());
-        System.out.println("The Value is : " + data.get(0).get(1).toString());*/
-
         //Create an ArrayList
         List<User> users =  new ArrayList<User>();
         //Store all the users
         users = table.asList(User.class);
 
+        LoginPage page = new LoginPage(base.Driver);
+
         for (User user: users){
-            System.out.println("The UsersName is" + user.username);
-            System.out.println("The Password is" + user.password);
+           page.Login(user.username, user.password);
         }
     }
 
@@ -66,6 +63,12 @@ public class LoginStep extends BaseUtil{
     public void iEnterUsernameAndPassword(String userName, String password) throws Throwable {
         System.out.println("UserName is : " + userName);
         System.out.println("Password is : " + password);
+    }
+
+    @Then("^I should see the userform page wrongly$")
+    public void iShouldSeeTheUserformPageWrongly() throws Throwable {
+
+        Assert.assertEquals("Its not displayed", base.Driver.findElement(By.id("sdfgdsfsd")).isDisplayed(), true);
     }
 
 
