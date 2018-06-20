@@ -17,16 +17,16 @@ pipeline {
         stage('Application Docker Setup') {
           steps {
             sh '''ls $WORKSPACE/target/mutao
-#rm -rf $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*
-#mv * $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/
-#cat $JENKINS_HOME/Dockerfiles/Tomcat/persistence.xml
-#cat $JENKINS_HOME/Dockerfiles/Tomcat/web.xml'''
+rm -rf $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*
+mv * $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/
+cat $JENKINS_HOME/Dockerfiles/Tomcat/persistence.xml
+cat $JENKINS_HOME/Dockerfiles/Tomcat/web.xml'''
           }
         }
         stage('DataBase Docker Setup') {
           steps {
-            sh '''ls $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
-ls $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
+            sh '''#cat $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
+#cat $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
           }
         }
       }
