@@ -7,6 +7,6 @@
 <title>GamerShop</title>
 </head>
 <body>
-    <h1>Bem vindos ao GamerShop!</h1>
+    <h1>Sejam todos bem vindos ao GamerShop!</h1>
 </body>
 </html>
