@@ -16,17 +16,17 @@ pipeline {
       parallel {
         stage('Application Docker Setup') {
           steps {
-            sh '''cd $WORKSPACE/target/mutao
-rm -rf $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*
-mv * $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/
-cat $JENKINS_HOME/Dockerfiles/Tomcat/persistence.xml
-cat $JENKINS_HOME/Dockerfiles/Tomcat/web.xml'''
+            sh '''ls $WORKSPACE/target/mutao
+#rm -rf $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*
+#mv * $JENKINS_HOME/Dockerfiles/Tomcat/ROOT/
+#cat $JENKINS_HOME/Dockerfiles/Tomcat/persistence.xml
+#cat $JENKINS_HOME/Dockerfiles/Tomcat/web.xml'''
           }
         }
         stage('DataBase Docker Setup') {
           steps {
-            sh '''touch $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
-touch $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
+            sh '''ls $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
+ls $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
           }
         }
       }
