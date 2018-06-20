@@ -25,8 +25,8 @@ cat $JENKINS_HOME/Dockerfiles/Tomcat/web.xml'''
         }
         stage('DataBase Docker Setup') {
           steps {
-            sh '''cat $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
-cat $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
+            sh '''touch $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
+touch $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
           }
         }
       }
@@ -69,11 +69,15 @@ docker build -t $DOCKERHUB_USERNAME/$DATABASE_NAME  .'''
     DOCKERHUB_PASSWORD = 'Iftm2018'
   }
   post {
-   failure {
-     mail(to: 'italo.mutao@gmail.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}.")
-   }  
-   success {
-     mail(to: 'italo.mutao@gmail.com', subject: "Successed Pipeline: ${currentBuild.fullDisplayName}", body: "${env.BUILD_URL} was successefully build.")
-   }
+    failure {
+      mail(to: 'italo.mutao@gmail.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}.")
+
+    }
+
+    success {
+      mail(to: 'italo.mutao@gmail.com', subject: "Successed Pipeline: ${currentBuild.fullDisplayName}", body: "${env.BUILD_URL} was successefully build.")
+
+    }
+
   }
 }
