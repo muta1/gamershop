@@ -16,7 +16,7 @@ pipeline {
       parallel {
         stage('Application Docker Setup') {
           steps {
-            sh '''echo $WORKSPACE/target/mutao'''
+            sh 'echo $WORKSPACE/target/mutao'
           }
         }
         stage('DataBase Docker Setup') {
@@ -58,6 +58,11 @@ pipeline {
         }
       }
     }
+    stage('Deploy Complete') {
+      steps {
+        sh 'echo Deu tudo certo !'
+      }
+    }
   }
   environment {
     DOCKERHUB_USERNAME = 'mutaodockerhub'
@@ -66,12 +71,14 @@ pipeline {
     DOCKERHUB_PASSWORD = 'Iftm2018'
   }
   post {
-    
     failure {
       mail(to: 'italo.mutao@gmail.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}.")
+
     }
+
     success {
       mail(to: 'italo.mutao@gmail.com', subject: "Successed Pipeline: ${currentBuild.fullDisplayName}", body: "${env.BUILD_URL} was successefully build.")
+
     }
 
   }
