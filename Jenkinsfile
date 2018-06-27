@@ -32,7 +32,10 @@ pipeline {
       parallel {
         stage('Application Docker Build') {
           steps {
-            sh 'docker build -t $DOCKERHUB_USERNAME/$APPLICATION_NAME $JENKINS_HOME/Dockerfiles/Tomcat'
+            sh '''docker build -t $DOCKERHUB_USERNAME/$APPLICATION_NAME $JENKINS_HOME/Dockerfiles/Tomcat
+echo $DOCKERHUB_USERNAME
+echo $APPLICATION_NAME
+echo $JENKINS_HOME'''
           }
         }
         stage('Database Docker Build') {
