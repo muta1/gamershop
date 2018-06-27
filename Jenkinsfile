@@ -4,7 +4,7 @@ pipeline {
     stage('Maven Tests') {
       steps {
         sh 'mvn clean install'
-        sh 'ls $WORKSPACE'
+        sh 'echo $WORKSPACE'
       }
     }
     stage('Docker Login') {
@@ -16,14 +16,13 @@ pipeline {
       parallel {
         stage('Application Docker Setup') {
           steps {
-            sh '''ls $WORKSPACE/target/mutao
-'''
+            sh '''echo $WORKSPACE/target/mutao'''
           }
         }
         stage('DataBase Docker Setup') {
           steps {
-            sh '''#cat $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
-#cat $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
+            sh '''echo $JENKINS_HOME/Dockerfiles/Mariadb/my.cnf
+                  echo $JENKINS_HOME/Dockerfiles/Mariadb/start.sh'''
           }
         }
       }
@@ -33,9 +32,9 @@ pipeline {
         stage('Application Docker Build') {
           steps {
             sh '''docker build -t $DOCKERHUB_USERNAME/$APPLICATION_NAME $JENKINS_HOME/Dockerfiles/Tomcat
-echo $DOCKERHUB_USERNAME
-echo $APPLICATION_NAME
-echo $JENKINS_HOME'''
+                  echo $DOCKERHUB_USERNAME
+                  echo $APPLICATION_NAME
+                  echo $JENKINS_HOME'''
           }
         }
         stage('Database Docker Build') {
@@ -67,14 +66,12 @@ echo $JENKINS_HOME'''
     DOCKERHUB_PASSWORD = 'Iftm2018'
   }
   post {
+    
     failure {
       mail(to: 'italo.mutao@gmail.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}.")
-
     }
-
     success {
       mail(to: 'italo.mutao@gmail.com', subject: "Successed Pipeline: ${currentBuild.fullDisplayName}", body: "${env.BUILD_URL} was successefully build.")
-
     }
 
   }
