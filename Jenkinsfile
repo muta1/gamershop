@@ -21,6 +21,11 @@ cd /home/mutao/
 ls'''
           }
         }
+        stage('Outro paralelo') {
+          steps {
+            sh 'echo \'Testando Outro paralelo\''
+          }
+        }
       }
     }
     stage('List containers') {
@@ -43,7 +48,7 @@ mv * /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/'''
     stage('Docker Remove (ALL) Containers') {
       steps {
         sh '''#test
-#docker rm $(docker ps -a -q)'''
+docker rm $(docker ps -a -q)'''
       }
     }
     stage('Build Containers') {
@@ -64,7 +69,7 @@ docker build -t mutaodockerhub/mariadb /home/mutao/Documents/JENKINS_HOME/Docker
     }
     stage('Check Containers') {
       steps {
-        sh 'docker ps -a'
+        sh 'docker images'
       }
     }
     stage('Dockerhub') {
