@@ -5,13 +5,13 @@ pipeline {
       parallel {
         stage('First Step for tests') {
           steps {
-            sh '''docker login -u mutaodockerhub -p iftm2018
+            sh '''docker ps -a
 '''
           }
         }
         stage('Docker ps -a') {
           steps {
-            sh 'docker ps -a'
+            sh 'docker login -u mutaodockerhub -p Iftm2018'
           }
         }
       }
