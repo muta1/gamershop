@@ -4,7 +4,7 @@ pipeline {
     stage('First Step for tests') {
       steps {
         sh '''ls
-cd /
+cd $JENKINS_HOME
 ls'''
       }
     }
