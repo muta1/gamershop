@@ -81,9 +81,24 @@ docker build -t mutaodockerhub/mariadb /home/mutao/Documents/JENKINS_HOME/Docker
         }
       }
     }
-    stage('Success Mail') {
+    stage('Run Containers Locally') {
+      parallel {
+        stage('Run Application Container') {
+          steps {
+            sh '''docker run -d -p 8080:8888 --name tomcat-application mutaodockerhub/tomcat
+'''
+          }
+        }
+        stage('Run Database Container') {
+          steps {
+            sh 'docker run -d -p 3306:3316 --name mariadb -v /home/mutao/Documents/JENKINS_HOME/database:/data mutaodockerhub/mariadb'
+          }
+        }
+      }
+    }
+    stage('Complete') {
       steps {
-        mail(subject: 'Deployment JENKINS', body: 'Sucesso Deploy', from: 'italo1577@gmail.com', to: 'italo1577@gmail.com')
+        sh 'echo \'Application test, build and push OK\''
       }
     }
   }
