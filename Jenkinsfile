@@ -16,6 +16,8 @@ pipeline {
         stage('Show Application') {
           steps {
             sh '''cd $WORKSPACE/target/
+ls
+cd $JENKINS_HOME/
 ls'''
           }
         }
