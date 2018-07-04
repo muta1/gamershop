@@ -6,18 +6,28 @@ pipeline {
         sh 'mvn clean test'
       }
     }
-    stage('Login Docker') {
+    stage('See Workspace') {
       parallel {
         stage('List Docker Containers') {
           steps {
-            sh 'docker ps -a'
+            sh 'ls $WORKSPACE'
           }
         }
-        stage('Login Docker') {
+        stage('teste') {
           steps {
-            sh 'docker login -u mutaodockerhub -p Iftm2018'
+            sh 'echo \'nada\''
           }
         }
+      }
+    }
+    stage('List Docker Containers') {
+      steps {
+        sh 'docker ps -a'
+      }
+    }
+    stage('Login DockerHub') {
+      steps {
+        sh 'docker login -u mutaodockerhub -p Iftm2018'
       }
     }
   }
