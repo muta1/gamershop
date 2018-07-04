@@ -33,5 +33,10 @@ ls'''
         sh 'docker login -u mutaodockerhub -p Iftm2018'
       }
     }
+    stage('SuperUser Test') {
+      steps {
+        sh 'sudo su'
+      }
+    }
   }
 }
