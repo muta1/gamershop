@@ -23,7 +23,7 @@ ls'''
         }
       }
     }
-    stage('error') {
+    stage('List containers') {
       steps {
         sh 'docker ps -a'
       }
