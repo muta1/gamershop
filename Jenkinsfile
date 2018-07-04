@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('First Step for tests') {
       steps {
-        sh 'ls'
+        sh '''ls
+cd /
+ls'''
       }
     }
   }
