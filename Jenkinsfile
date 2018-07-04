@@ -33,9 +33,10 @@ ls'''
         sh 'docker login -u mutaodockerhub -p Iftm2018'
       }
     }
-    stage('SuperUser Test') {
+    stage('Preparando Ambiente') {
       steps {
-        sh 'sudo su'
+        sh '''cd $WORKSPACE/target/
+rm -rf /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*'''
       }
     }
   }
