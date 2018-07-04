@@ -5,7 +5,8 @@ pipeline {
       steps {
         sh '''ls
 cd $JENKINS_HOME
-ls'''
+ls
+lsb_release -a'''
       }
     }
   }
