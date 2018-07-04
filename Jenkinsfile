@@ -85,13 +85,13 @@ docker build -t mutaodockerhub/mariadb /home/mutao/Documents/JENKINS_HOME/Docker
       parallel {
         stage('Run Application Container') {
           steps {
-            sh '''docker run -d -p 8080:8888 --name tomcat-application mutaodockerhub/tomcat
+            sh '''docker run -d -p 8888:8080 --name tomcat-application mutaodockerhub/tomcat
 '''
           }
         }
         stage('Run Database Container') {
           steps {
-            sh 'docker run -d -p 3306:3316 --name mariadb -v /home/mutao/Documents/JENKINS_HOME/database:/data mutaodockerhub/mariadb'
+            sh 'docker run -d -p 3316:3306 --name mariadb -v /home/mutao/Documents/JENKINS_HOME/database:/data mutaodockerhub/mariadb'
           }
         }
       }
