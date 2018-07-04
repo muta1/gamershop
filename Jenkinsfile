@@ -23,7 +23,7 @@ ls'''
         }
       }
     }
-    stage('') {
+    stage('error') {
       steps {
         sh 'docker ps -a'
       }
@@ -42,7 +42,8 @@ mv * /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/'''
     }
     stage('Docker Remove (ALL) Containers') {
       steps {
-        sh 'docker rm $(docker ps -a -q)'
+        sh '''#test
+#docker rm $(docker ps -a -q)'''
       }
     }
     stage('Build Containers') {
