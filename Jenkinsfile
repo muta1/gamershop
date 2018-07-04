@@ -17,7 +17,7 @@ pipeline {
           steps {
             sh '''cd $WORKSPACE/target/
 ls
-cd $JENKINS_HOME/
+cd /home/mutao/
 ls'''
           }
         }
