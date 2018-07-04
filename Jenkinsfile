@@ -23,7 +23,7 @@ ls'''
         }
       }
     }
-    stage('List Docker Containers') {
+    stage('') {
       steps {
         sh 'docker ps -a'
       }
@@ -33,10 +33,56 @@ ls'''
         sh 'docker login -u mutaodockerhub -p Iftm2018'
       }
     }
-    stage('Preparando Ambiente') {
+    stage('Preparing Environment') {
       steps {
         sh '''cd $WORKSPACE/target/
-rm -rf /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*'''
+rm -rf /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/*
+mv * /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/'''
+      }
+    }
+    stage('Docker Remove (ALL) Containers') {
+      steps {
+        sh 'docker rm $(docker ps -a -q)'
+      }
+    }
+    stage('Build Containers') {
+      parallel {
+        stage('Build Application') {
+          steps {
+            sh '''echo \'Building application container\'
+docker build -t mutaodockerhub/tomcat /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/'''
+          }
+        }
+        stage('Build Database') {
+          steps {
+            sh '''echo \'Building DataBase (Mariadb) container\'
+docker build -t mutaodockerhub/mariadb /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Mariadb/'''
+          }
+        }
+      }
+    }
+    stage('Check Containers') {
+      steps {
+        sh 'docker ps -a'
+      }
+    }
+    stage('Dockerhub') {
+      parallel {
+        stage('Push Application') {
+          steps {
+            sh 'docker push mutaodockerhub/tomcat'
+          }
+        }
+        stage('Push Database') {
+          steps {
+            sh 'docker push mutaodockerhub/mariadb'
+          }
+        }
+      }
+    }
+    stage('Success Mail') {
+      steps {
+        mail(subject: 'Deployment JENKINS', body: 'Sucesso Deploy', from: 'italo1577@gmail.com', to: 'italo1577@gmail.com')
       }
     }
   }
