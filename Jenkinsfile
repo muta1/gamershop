@@ -56,7 +56,7 @@ docker rm $(docker ps -a -q)'''
         stage('Build Application') {
           steps {
             sh '''echo \'Building application container\'
-docker build -t mutaodockerhub/tomcat /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/'''
+#docker build -t mutaodockerhub/tomcat /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/'''
           }
         }
         stage('Build Database') {
@@ -76,7 +76,7 @@ docker build -t mutaodockerhub/mariadb /home/mutao/Documents/JENKINS_HOME/Docker
       parallel {
         stage('Push Application') {
           steps {
-            sh 'docker push mutaodockerhub/tomcat'
+            sh '#docker push mutaodockerhub/tomcat'
           }
         }
         stage('Push Database') {
