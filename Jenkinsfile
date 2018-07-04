@@ -2,11 +2,18 @@ pipeline {
   agent any
   stages {
     stage('First Step for tests') {
-      steps {
-        sh '''ls
-cd $JENKINS_HOME
-ls
-lsb_release -a'''
+      parallel {
+        stage('First Step for tests') {
+          steps {
+            sh '''docker login -u mutaodockerhub -p iftm2018
+'''
+          }
+        }
+        stage('Docker ps -a') {
+          steps {
+            sh 'docker ps -a'
+          }
+        }
       }
     }
   }
