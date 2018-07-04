@@ -6,16 +6,17 @@ pipeline {
         sh 'mvn clean test'
       }
     }
-    stage('See Workspace') {
+    stage('Show Workspace') {
       parallel {
         stage('List Docker Containers') {
           steps {
             sh 'ls $WORKSPACE'
           }
         }
-        stage('teste') {
+        stage('Show Application') {
           steps {
-            sh 'echo \'nada\''
+            sh '''cd $WORKSPACE/target/
+ls'''
           }
         }
       }
