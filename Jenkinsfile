@@ -48,7 +48,7 @@ mv * /home/mutao/Documents/JENKINS_HOME/Dockerfiles/Tomcat/ROOT/'''
     stage('Docker Remove (ALL) Containers') {
       steps {
         sh '''#test
-docker rm $(docker ps -a -q)'''
+#docker rm $(docker ps -a -q)'''
       }
     }
     stage('Build Containers') {
